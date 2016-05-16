@@ -10,6 +10,12 @@
 #import "ReactiveCocoa.h"
 
 /**
+ *  RAC的核心概念就是“响应数据的变化”--->数据与视图绑定。
+ *
+ *
+ */
+
+/**
  *  使用cocoapods导入ReactiveCocoa要注意，Podfile头部要用：
  use_frameworks!
  否则导入不成功
