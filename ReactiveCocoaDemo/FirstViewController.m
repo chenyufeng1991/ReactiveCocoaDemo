@@ -62,10 +62,49 @@
     // 将nameStr这个值和nameTextField进行绑定，只要nameStr值改变了，nameTextField上显示的值也就改变了
     // RACObserve中的第二个参数就是要监听的值
     // 在实际的开发中，View会和Model绑定，Model中数据发生改变，UI也会直接更新
+    // RACObserve只能对属性、变量，Model进行观察，不能对View视图进行观察。
     self.nameStr = @"chen";
     [RACObserve(self, nameStr) subscribeNext:^(NSString *nameStr) {
         self.nameTextField.text = nameStr;
     }];
+#endif
+
+#if 0
+    //在输出的时候过滤，字符大于3时才打印
+    [[self.nameTextField.rac_textSignal
+      filter:^BOOL(id value) {
+          NSString *text = value;//隐式的类型转化
+          return text.length > 3;
+      }]
+
+     subscribeNext:^(id x) {
+         NSLog(@"%@",x);
+     }];
+#endif
+
+#if 0
+    //理解RACSignal.RACSignal的每个操作都会返回一个RACSignal,类似于链式编程，不用每一步都使用本地变量。
+    RACSignal *nameSourceSignal = self.nameTextField.rac_textSignal;
+    RACSignal *filterNameSignal = [nameSourceSignal filter:^BOOL(id value) {
+
+        NSString *text = value;
+        return text.length > 3;
+    }];
+    [filterNameSignal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+#endif
+
+#if 0
+    //在输出的时候过滤，字符大于3时才打印
+    //我们常常手动修改block中的变量类型
+    [[self.nameTextField.rac_textSignal
+      filter:^BOOL(NSString *text) {
+          return text.length > 3;
+      }]
+     subscribeNext:^(NSString *text) {
+         NSLog(@"%@",text);
+     }];
 #endif
 
 }
