@@ -1,1 +1,1 @@
-../../../../ReactiveCocoa/ReactiveCocoa/Objective-C/RACValueTransformer.h
+../../../../ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa/RACValueTransformer.h

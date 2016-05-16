@@ -1,1 +1,1 @@
-../../../../ReactiveCocoa/ReactiveCocoa/Objective-C/RACGroupedSignal.h
+../../../../ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa/RACGroupedSignal.h

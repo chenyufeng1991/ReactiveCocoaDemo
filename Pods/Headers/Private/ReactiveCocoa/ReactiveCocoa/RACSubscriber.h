@@ -1,1 +1,1 @@
-../../../../ReactiveCocoa/ReactiveCocoa/Objective-C/RACSubscriber.h
+../../../../ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa/RACSubscriber.h

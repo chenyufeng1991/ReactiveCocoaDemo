@@ -1,1 +1,1 @@
-../../../../ReactiveCocoa/ReactiveCocoa/Objective-C/RACKVOChannel.h
+../../../../ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa/RACKVOChannel.h
