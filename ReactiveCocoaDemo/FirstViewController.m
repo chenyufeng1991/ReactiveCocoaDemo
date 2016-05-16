@@ -39,6 +39,23 @@
  *  ReactiveCocoa signal(RACSignal)发送事件流给它的subscriber.目前总共有三种类型的事件：next,error,compeleted.一个signal在因error终止或者完成前，可以发送任意数量的next事件。
  */
 
+/**
+ *  map:修改；
+    filter:过滤；
+    combine:叠加；
+    chain:串联；
+ */
+
+/**Signal and Subscriber
+ *  这是RAC最核心的内容，这里我想用插头和插座来描述，插座是Signal，插头是Subscriber。想象某个遥远的星球，他们的电像某种物质一样被集中存储，且很珍贵。插座负责去获取电，插头负责使用电，而且一个插座可以插任意数量的插头。当一个插座(Signal)没有插头(Subscriber)时什么也不干，也就是处于冷(Cold)的状态，只有插了插头时才会去获取，这个时候就处于热(Hot)的状态。
+ */
+
+/**
+ *  Signal获取到数据后，会调用Subscriber的sendNext,sendComplete,sendError方法来传送数据给Subscriber,Subscriber也有方法来获取传过来的数据。如：[signal subscriberNext:error:completed].这样只要没有sendCompleted和sendError,新的值就会通过sendNext源源不断传送过来。
+ 
+ RACObserve使用KVO来监听property的变化，只要属性被自己或者外部改变，block就会被执行。
+ */
+
 @interface FirstViewController ()
 
 @property (strong, nonatomic) NSString *nameStr;
@@ -53,6 +70,7 @@
 
 #if 0
     //监听输入框的输入内容,只需要signal和block,不需要target-action,也不需要delegate
+    //rac_textSignal是添加到UITextField上面的category。
     [self.nameTextField.rac_textSignal subscribeNext:^(id x) {
         NSLog(@"%@",x);
     }];
@@ -124,16 +142,34 @@
      }];
 #endif
 
+#if 0
+    //冷信号
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"trigger");
+        [subscriber sendNext:@"sendNext"];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+
+    //变成热信号
+    [signal subscribeCompleted:^{
+        NSLog(@"subscription");
+    }];
+#endif
+
     
+
 
 }
 
 //不断改变nameStr的值，测试nameTextField上显示的文本
 - (IBAction)loginButtonClicked:(id)sender
 {
+#if 0
     int value = arc4random() % 100;
     self.nameStr = [NSString stringWithFormat:@"%d",value];
     NSLog(@"%d",value);
+#endif
 }
 
 
