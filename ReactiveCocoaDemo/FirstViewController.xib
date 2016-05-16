@@ -25,6 +25,9 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zW3-zY-0KX">
                     <rect key="frame" x="141" y="177" width="38" height="30"/>
                     <state key="normal" title="Login"/>
+                    <connections>
+                        <action selector="loginButtonClicked:" destination="-1" eventType="touchUpInside" id="D3A-aM-cA2"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

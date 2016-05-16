@@ -59,6 +59,7 @@
 @interface FirstViewController ()
 
 @property (strong, nonatomic) NSString *nameStr;
+@property (strong, nonatomic) NSArray *familyArr;
 
 @end
 
@@ -157,18 +158,28 @@
     }];
 #endif
 
-    
-
+#if 0
+    //绑定一个对象，当一个对象的dealloc被触发时，执行block。
+    self.familyArr = @[@"foo"];
+    [[self.familyArr rac_willDeallocSignal] subscribeCompleted:^{
+        NSLog(@"对象被销毁");
+    }];
+#endif
 
 }
 
-//不断改变nameStr的值，测试nameTextField上显示的文本
 - (IBAction)loginButtonClicked:(id)sender
 {
 #if 0
+    //不断改变nameStr的值，测试nameTextField上显示的文本
     int value = arc4random() % 100;
     self.nameStr = [NSString stringWithFormat:@"%d",value];
     NSLog(@"%d",value);
+#endif
+
+#if 0
+    //点击按钮销毁数组
+    self.familyArr = nil;
 #endif
 }
 
