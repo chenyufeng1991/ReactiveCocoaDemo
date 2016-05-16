@@ -56,6 +56,21 @@
  RACObserve使用KVO来监听property的变化，只要属性被自己或者外部改变，block就会被执行。
  */
 
+/**
+ *  MVVM:
+ RAC还带来结构层面的变化。MVVM和MVC最大的区别就是多了个ViewModel ,它直接与View绑定，而且对View一无所知。使用ViewModel的好处是，可以让Controller更加简单和轻便，而且ViewModel相对独立。在MVVM中，Controller可以被看成View，所以主要的工作就是处理布局，动画，接收系统事件，展示UI。
+ 
+ MVVM还有一个很重要的概念是data binding,view的呈现需要data，这个data就是由ViewModel提供的，将view的data与ViewModel的data绑定后，将来双方的数据只要有一方有变化，另一方就能收到。
+ 
+ 
+ 当一个signal被一个subscriber subscibe后，当subscriber被sendComplete或sendError时，或者手动调用[disposable dispose]。当subscriber被dispose后，所有该subscriber相关的工作都会被停止或取消。
+
+ */
+
+/**
+ *  信号会为了控制通过应用的信息流而获得所有这些异步方法（delegate,block,Notification,KVO,target-action），
+ */
+
 @interface FirstViewController ()
 
 @property (strong, nonatomic) NSString *nameStr;
@@ -70,6 +85,7 @@
     [super viewDidLoad];
 
 #if 0
+    // (1)
     //监听输入框的输入内容,只需要signal和block,不需要target-action,也不需要delegate
     //rac_textSignal是添加到UITextField上面的category。
     [self.nameTextField.rac_textSignal subscribeNext:^(id x) {
@@ -78,6 +94,7 @@
 #endif
 
 #if 0
+    // (2)
     // 将nameStr这个值和nameTextField进行绑定，只要nameStr值改变了，nameTextField上显示的值也就改变了
     // RACObserve中的第二个参数就是要监听的值
     // 在实际的开发中，View会和Model绑定，Model中数据发生改变，UI也会直接更新
@@ -89,6 +106,7 @@
 #endif
 
 #if 0
+    // (3)
     //在输出的时候过滤，字符大于3时才打印
     [[self.nameTextField.rac_textSignal
       filter:^BOOL(id value) {
@@ -102,6 +120,7 @@
 #endif
 
 #if 0
+    // (4)
     //理解RACSignal.RACSignal的每个操作都会返回一个RACSignal,类似于链式编程，不用每一步都使用本地变量。
     RACSignal *nameSourceSignal = self.nameTextField.rac_textSignal;
     RACSignal *filterNameSignal = [nameSourceSignal filter:^BOOL(id value) {
@@ -115,6 +134,7 @@
 #endif
 
 #if 0
+    // (5)
     //在输出的时候过滤，字符大于3时才打印
     //我们常常手动修改block中的变量类型
     [[self.nameTextField.rac_textSignal
@@ -128,6 +148,7 @@
 
 
 #if 0
+    // (6)
     // 使用map改变了事件的数据，map从上一个next事件接收数据，通过执行block把返回值传给下一个next事件。
     // map以NSString为输入，取字符串的长度，返回一个NSNumber。
     [[[self.nameTextField.rac_textSignal
@@ -144,6 +165,7 @@
 #endif
 
 #if 0
+    // (7)
     //冷信号
     RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSLog(@"trigger");
@@ -159,11 +181,18 @@
 #endif
 
 #if 0
+    // (8)
     //绑定一个对象，当一个对象的dealloc被触发时，执行block。
     self.familyArr = @[@"foo"];
     [[self.familyArr rac_willDeallocSignal] subscribeCompleted:^{
         NSLog(@"对象被销毁");
     }];
+#endif
+
+
+#if 0
+    // 对（2）的优化，可以简写如下：
+    RAC(self,nameTextField.text) = RACObserve(self, nameStr);
 #endif
 
 }
