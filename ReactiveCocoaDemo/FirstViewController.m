@@ -102,10 +102,29 @@
       filter:^BOOL(NSString *text) {
           return text.length > 3;
       }]
-     subscribeNext:^(NSString *text) {
+     subscribeNext:^(id x) {
          NSLog(@"%@",text);
      }];
 #endif
+
+
+#if 0
+    // 使用map改变了事件的数据，map从上一个next事件接收数据，通过执行block把返回值传给下一个next事件。
+    // map以NSString为输入，取字符串的长度，返回一个NSNumber。
+    [[[self.nameTextField.rac_textSignal
+       map:^id(NSString *text) {
+           return @(text.length);
+       }]
+      //通过上面的管道，要处理的值变为NSNumber类型
+      filter:^BOOL(NSNumber *length) {
+          return [length integerValue] > 3;
+      }]
+     subscribeNext:^(id x) {
+         NSLog(@"%@",x);
+     }];
+#endif
+
+    
 
 }
 
