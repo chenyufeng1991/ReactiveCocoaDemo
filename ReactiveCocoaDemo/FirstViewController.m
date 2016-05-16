@@ -149,7 +149,7 @@
 
 #if 0
     // (6)
-    // 使用map改变了事件的数据，map从上一个next事件接收数据，通过执行block把返回值传给下一个next事件。
+    // 使用map改变了事件的数据，map从上一个next事件接收数据，通过执行block把返回值传给下一个next事件。-->转换数据流
     // map以NSString为输入，取字符串的长度，返回一个NSNumber。
     [[[self.nameTextField.rac_textSignal
        map:^id(NSString *text) {
