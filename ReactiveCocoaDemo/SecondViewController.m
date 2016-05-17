@@ -56,7 +56,7 @@ RACObserce()也是一样。
     }];
 #endif
 
-
+#if 0
     // KVO，监听对象中属性的改变,只要值改变就会发送信号。
     // 也是通过keypath去找到该值
     self.loginMgr = [[LoginManager alloc] init];
@@ -68,6 +68,7 @@ RACObserce()也是一样。
         self.loginMgr.username = self.usernameTextField.text;
         self.loginMgr.password = self.passwordTextField.text;
     }];
+#endif
 }
 
 
