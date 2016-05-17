@@ -7,8 +7,12 @@
 //
 
 #import "SecondViewController.h"
+#import "LoginManager.h"
+#import "ReactiveCocoa.h"
 
 @interface SecondViewController ()
+
+@property (nonatomic, strong) LoginManager *loginMgr;
 
 @end
 
@@ -17,6 +21,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+
+        NSLog(@"123");
+    }];
+    
 }
 
 

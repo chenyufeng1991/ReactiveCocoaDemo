@@ -238,6 +238,12 @@
     RAC(self,nameTextField.text) = RACObserve(self, nameStr);
 #endif
 
+#if 0
+    //监听按钮的点击事件
+    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        NSLog(@"按钮被点击了");
+    }];
+#endif
 }
 
 - (IBAction)loginButtonClicked:(id)sender
