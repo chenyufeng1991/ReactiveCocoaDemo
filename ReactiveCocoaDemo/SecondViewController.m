@@ -9,6 +9,7 @@
 #import "SecondViewController.h"
 #import "LoginManager.h"
 #import "ReactiveCocoa.h"
+#import "RACEXTScope.h"
 
 @interface SecondViewController ()
 
@@ -28,6 +29,13 @@
 RAC(self.objc,attribute) 等价于 RAC(self,objc.attribute);
 
 RACObserce()也是一样。
+*/
+
+/**
+*  RAC常见宏
+（1）RAC(TARGET, ...)   :用于给某个对象的某个属性绑定。
+（2）RACObserve(TARGET, KEYPATH)  :监听某个对象的某个属性，返回的是信号。
+ (3) RACTuplePack   :把数据包装成RACTuple（元祖类）。
 */
 
 - (void)viewDidLoad
@@ -74,6 +82,11 @@ RACObserce()也是一样。
     // (4)  对（1）的简便写法
     RAC(self,currentUsernameLabel.text) = self.usernameTextField.rac_textSignal;
     RAC(self,currentPasswordLabel.text) = self.passwordTextField.rac_textSignal;
+#endif
+
+#if 0
+    // 把数据包装成元祖
+    RACTuple *tuple = RACTuplePack(@10,@20);
 #endif
 
 
