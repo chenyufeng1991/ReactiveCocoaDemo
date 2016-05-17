@@ -69,8 +69,51 @@
 
 /**
  *  信号会为了控制通过应用的信息流而获得所有这些异步方法（delegate,block,Notification,KVO,target-action），
+ 
+ 在RAC的block中使用self时，将会被捕获为强引用并导致循环引用。
  */
 
+/**
+ *  订阅信号链要明白的事是每当一个新值通过信号发送出去时，实际上会给每个订阅者都发送一次。直到意识到这对我们而言是有用的。信号发出去的值不存储在任何地方（除了在RAC的内部实现中），当信号需要发送一个新的值时，它会遍历所有的订阅者并给每个订阅者发送那个值。
+ */
+
+/**
+ *  FRP:Functional Reactive Pragramming,函数响应式编程框架
+ */
+
+/**
+ *  理解RAC中的类：
+ （1）RACSignal:信号类，一般表示将来有数据传递，只要有数据改变，信号内部接收到数据，就会马上发出数据。
+ ——信号类（RACSignal），只是表示当数据改变时，信号内部会发出数据，本身不具备发送信号的能力，而是交给内部一个订阅者发出。
+ ——默认一个信号都是冷信号，也就是值改变了，也不会触发。只有订阅了这个信号，这个信号才会变成热信号，值改变了才会触发。
+ ——如何订阅信号：调用信号RACSignal的subscribeNext就能订阅。
+ 
+ （2）RACSubscriber:表示订阅者，用于发送信号。这是一个协议，不是一个类。只要遵守这个协议，并且实现方法才能成为订阅者。通过Create创建的信号，都有一个订阅者，帮助他发送数据。
+ （3）RACDisposable：用于取消订阅或者清理资源，当信号发送完成或者发送错误的时候，就会自动触发它。
+ —— 不想监听某个信号时，可以通过它主动取消订阅信号。
+ （4）RACSubject:信号提供者，自己可以充当信号，又能发送信号。
+ —— 通常用来代替代理，有了它，就不必定义代理了。
+ （5）RACTuple:元祖类，类似NSArray，用来包装值。
+ （6）RACSequence:RAC中的集合类，用于代替NSArray,NSDictionary，可以使用它来快速遍历数组和字典。
+ （7）RACCommand:RAC中用于处理事件的类。可以把事件如何处理，事件中的数据如何传递，包装到这个类中，它可以很方便的监控事件的执行过程。
+ —— 用于监听按钮点击，网路请求。
+ （8）RACMulticastConnection:用于当一个信号被多次订阅时，为了保证创建信号时，避免多次调用创建信号中的block，造成副作用，可以使用这个类处理。
+ （9）RACSchedualer:RAC中的队列，用GCD封装的。
+ */
+
+/**
+ *  RAC开发中常见的用法：
+ （1）代替代理：
+ rac_signalForSelector:用于替代代理。
+ （2）代替KVO：
+ rac_valuesAndChangesForKeyPath:用于监听某个对象的属性改变。
+ （3）监听事件：
+ rac_signalForControlEvents:用于监听某个事件。
+ （4）代替通知：
+ rac_addObserveForName:用于监听某个通知。
+ （5）监听文本框文字改变：
+ rac_textSignal:只要文本框发出改变就会发出这个信号。
+ */
 @interface FirstViewController ()
 
 @property (strong, nonatomic) NSString *nameStr;
