@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7150841F1CEAD97600B0B320 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7150841E1CEAD97600B0B320 /* LoginManager.m */; };
+		715084231CEB36D000B0B320 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 715084211CEB36D000B0B320 /* ThirdViewController.m */; };
+		715084241CEB36D000B0B320 /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715084221CEB36D000B0B320 /* ThirdViewController.xib */; };
 		716B208F1CE9937C003D319E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 716B208E1CE9937C003D319E /* main.m */; };
 		716B20921CE9937C003D319E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 716B20911CE9937C003D319E /* AppDelegate.m */; };
 		716B209A1CE9937C003D319E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 716B20991CE9937C003D319E /* Assets.xcassets */; };
@@ -23,6 +25,9 @@
 		4F7DD89D5E9DC641552E98EB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7150841D1CEAD97600B0B320 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		7150841E1CEAD97600B0B320 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		715084201CEB36D000B0B320 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		715084211CEB36D000B0B320 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		715084221CEB36D000B0B320 /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 		716B208A1CE9937C003D319E /* ReactiveCocoaDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveCocoaDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		716B208E1CE9937C003D319E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		716B20901CE9937C003D319E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -98,6 +103,9 @@
 				716B20A91CE994A4003D319E /* SecondViewController.h */,
 				716B20AA1CE994A4003D319E /* SecondViewController.m */,
 				716B20AB1CE994A4003D319E /* SecondViewController.xib */,
+				715084201CEB36D000B0B320 /* ThirdViewController.h */,
+				715084211CEB36D000B0B320 /* ThirdViewController.m */,
+				715084221CEB36D000B0B320 /* ThirdViewController.xib */,
 				7150841D1CEAD97600B0B320 /* LoginManager.h */,
 				7150841E1CEAD97600B0B320 /* LoginManager.m */,
 				716B20991CE9937C003D319E /* Assets.xcassets */,
@@ -179,6 +187,7 @@
 				716B209D1CE9937C003D319E /* LaunchScreen.storyboard in Resources */,
 				716B209A1CE9937C003D319E /* Assets.xcassets in Resources */,
 				716B20A81CE99483003D319E /* FirstViewController.xib in Resources */,
+				715084241CEB36D000B0B320 /* ThirdViewController.xib in Resources */,
 				716B20AD1CE994A4003D319E /* SecondViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +249,7 @@
 			files = (
 				716B20AC1CE994A4003D319E /* SecondViewController.m in Sources */,
 				7150841F1CEAD97600B0B320 /* LoginManager.m in Sources */,
+				715084231CEB36D000B0B320 /* ThirdViewController.m in Sources */,
 				716B20921CE9937C003D319E /* AppDelegate.m in Sources */,
 				716B208F1CE9937C003D319E /* main.m in Sources */,
 				716B20A71CE99483003D319E /* FirstViewController.m in Sources */,

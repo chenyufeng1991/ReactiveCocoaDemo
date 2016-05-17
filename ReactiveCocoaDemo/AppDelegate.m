@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "FirstViewController.h"
 #import "SecondViewController.h"
+#import "ThirdViewController.h"
 
 @interface AppDelegate ()
 
@@ -27,11 +28,13 @@
     firstVC.title = @"第一页";
     SecondViewController *secondVC = [[SecondViewController alloc] init];
     secondVC.title = @"第二页";
+    ThirdViewController *thirdVC = [[ThirdViewController alloc] init];
 
     UINavigationController *firstNavi = [[UINavigationController alloc] initWithRootViewController:firstVC];
     UINavigationController *secondNavi = [[UINavigationController alloc] initWithRootViewController:secondVC];
+    UINavigationController *thirdNavi = [[UINavigationController alloc] initWithRootViewController:thirdVC];
 
-    self.tabController.viewControllers = @[firstNavi,secondNavi];
+    self.tabController.viewControllers = @[firstNavi,secondNavi,thirdNavi];
     self.window.rootViewController = self.tabController;
     [self.window makeKeyAndVisible];
 
