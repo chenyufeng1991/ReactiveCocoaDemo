@@ -35,10 +35,14 @@
     }];
 #endif
 
+    self.loginMgr = [[LoginManager alloc] init];
+    RAC(self,currentUsernameLabel.text) = RACObserve(self, loginMgr.username);
+    RAC(self,currentPasswordLabel.text) = RACObserve(self, loginMgr.password);
+
     [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        NSLog(@"123");
+        self.loginMgr.username = self.usernameTextField.text;
+        self.loginMgr.password = self.passwordTextField.text;
     }];
-    
 }
 
 
