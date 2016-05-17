@@ -56,7 +56,24 @@ RACObserce()也是一样。
     }];
 #endif
 
+
+    // KVO，监听对象中属性的改变,只要值改变就会发送信号。
+    // 也是通过keypath去找到该值
+    self.loginMgr = [[LoginManager alloc] init];
+    [[self.loginMgr rac_valuesAndChangesForKeyPath:@"username" options:NSKeyValueObservingOptionNew observer:nil] subscribeNext:^(NSArray *x) {
+        NSLog(@"%@",x[0]);
+    }];
+
+    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        self.loginMgr.username = self.usernameTextField.text;
+        self.loginMgr.password = self.passwordTextField.text;
+    }];
 }
 
 
 @end
+
+
+
+
+
