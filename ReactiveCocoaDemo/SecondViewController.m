@@ -21,6 +21,15 @@
 /**
  *  目前我的需求是：输入用户名密码，点击登录按钮，改变loginMgr对象的值；并且绑定该对象和Label的显示，让Label显示登录的用户。
  */
+
+/**
+*  注意：RAC()和RACObserve()中传入的是keypath，只要是keypath的路径正确，点语法的前后顺序无所谓的。
+如：
+RAC(self.objc,attribute) 等价于 RAC(self,objc.attribute);
+
+RACObserce()也是一样。
+*/
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -35,6 +44,8 @@
     }];
 #endif
 
+#if 0
+    //绑定对象，显示UI。
     self.loginMgr = [[LoginManager alloc] init];
     RAC(self,currentUsernameLabel.text) = RACObserve(self, loginMgr.username);
     RAC(self,currentPasswordLabel.text) = RACObserve(self, loginMgr.password);
@@ -43,6 +54,8 @@
         self.loginMgr.username = self.usernameTextField.text;
         self.loginMgr.password = self.passwordTextField.text;
     }];
+#endif
+
 }
 
 
