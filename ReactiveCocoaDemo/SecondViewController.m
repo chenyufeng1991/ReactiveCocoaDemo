@@ -35,7 +35,7 @@ RACObserce()也是一样。
     [super viewDidLoad];
 
 #if 0
-    // 对文本输入监听，并且绑定Label显示
+    // (1) 对文本输入监听，并且绑定Label显示
     [self.usernameTextField.rac_textSignal subscribeNext:^(id x) {
         self.currentUsernameLabel.text = self.usernameTextField.text;
     }];
@@ -45,7 +45,7 @@ RACObserce()也是一样。
 #endif
 
 #if 0
-    //绑定对象，显示UI。
+    // (2)绑定对象，显示UI。
     self.loginMgr = [[LoginManager alloc] init];
     RAC(self,currentUsernameLabel.text) = RACObserve(self, loginMgr.username);
     RAC(self,currentPasswordLabel.text) = RACObserve(self, loginMgr.password);
@@ -57,7 +57,7 @@ RACObserce()也是一样。
 #endif
 
 #if 0
-    // KVO，监听对象中属性的改变,只要值改变就会发送信号。
+    // (3)KVO，监听对象中属性的改变,只要值改变就会发送信号。
     // 也是通过keypath去找到该值
     self.loginMgr = [[LoginManager alloc] init];
     [[self.loginMgr rac_valuesAndChangesForKeyPath:@"username" options:NSKeyValueObservingOptionNew observer:nil] subscribeNext:^(NSArray *x) {
@@ -69,6 +69,17 @@ RACObserce()也是一样。
         self.loginMgr.password = self.passwordTextField.text;
     }];
 #endif
+
+#if 0
+    // (4)  对（1）的简便写法
+    RAC(self,currentUsernameLabel.text) = self.usernameTextField.rac_textSignal;
+    RAC(self,currentPasswordLabel.text) = self.passwordTextField.rac_textSignal;
+#endif
+
+
+
+
+
 }
 
 
