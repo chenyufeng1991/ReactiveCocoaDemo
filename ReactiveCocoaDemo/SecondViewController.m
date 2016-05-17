@@ -18,12 +18,24 @@
 
 @implementation SecondViewController
 
+/**
+ *  目前我的需求是：输入用户名密码，点击登录按钮，改变loginMgr对象的值；并且绑定该对象和Label的显示，让Label显示登录的用户。
+ */
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+#if 0
+    // 对文本输入监听，并且绑定Label显示
+    [self.usernameTextField.rac_textSignal subscribeNext:^(id x) {
+        self.currentUsernameLabel.text = self.usernameTextField.text;
+    }];
+    [self.passwordTextField.rac_textSignal subscribeNext:^(id x) {
+        self.currentPasswordLabel.text = self.passwordTextField.text;
+    }];
+#endif
 
+    [[self.loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         NSLog(@"123");
     }];
     
