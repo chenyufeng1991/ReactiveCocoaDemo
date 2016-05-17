@@ -36,6 +36,7 @@ RACObserce()也是一样。
 （1）RAC(TARGET, ...)   :用于给某个对象的某个属性绑定。
 （2）RACObserve(TARGET, KEYPATH)  :监听某个对象的某个属性，返回的是信号。
  (3) RACTuplePack   :把数据包装成RACTuple（元祖类）。
+ (4) RACTupleUnpack   :把RACTuple（元组类）解包成对应的数据。
 */
 
 - (void)viewDidLoad
@@ -90,6 +91,14 @@ RACObserce()也是一样。
 #endif
 
 
+#if 0
+    // 把参数中的数据包装成元组
+    RACTuple *tuple = RACTuplePack(@"chenyufeng",@20);
+
+    // 解包元组，会把元组的值，按顺序给参数里面的变量赋值
+    RACTupleUnpack(NSString *name,NSNumber *age) = tuple;
+    NSLog(@"name = %@,age = %@",name,age);
+#endif
 
 
 
