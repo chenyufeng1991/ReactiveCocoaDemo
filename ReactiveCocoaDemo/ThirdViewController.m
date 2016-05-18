@@ -62,9 +62,25 @@
 
 }
 
-#pragma mark - Function
+#pragma mark - 冷热信号入门
+
+/**
+ *  （1）热信号是主动的，尽管并没有订阅事件，但是会时刻推送；而冷信号是被动的，只有当你订阅的时候，它才会发布消息。
+ *  （2）热信号可以有多个订阅者，是一对多，集合可以和订阅者共享信息；而冷信号只能一对一，当有不同的订阅者，消息是重新完整发送。
+ *
+ */
+
+/**
+ *  总结：
+ * （1）热信号是主动的，即使没有订阅事件，它仍然会时刻推送。如第二个例子，信号被创建1s后，1这个值就推送出来了，但是当时还没有订阅者。而冷信号是被动的，只有当你订阅的时候，它才会发送消息。
+ * （2）热信号可以有多个订阅者，是一对多，信号可以与订阅者共享信息。如第二个例子，订阅者1和订阅者2是共享的，他们都能在同一时间接收到3这个值。而冷信号只能一对一，当有不同的订阅者，消息会重新完整发送。如第一个例子，我们可以观察到两个订阅者没有联系，都是基于各自的订阅事件开始接收消息的。
+ */
 
 // 冷信号
+/**
+ *  冷信号就像是看下载好的电影。
+ 冷信号在两个不同时间段的订阅过程中，分别完整的发送了所有的消息。
+ */
 - (void)coldSignal
 {
     RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -77,6 +93,7 @@
     }];
     NSLog(@"Signal was created");
 
+    // 两个订阅者在不同的时间进行订阅
     [[RACScheduler mainThreadScheduler] afterDelay:0.1 schedule:^{
         [signal subscribeNext:^(id x) {
             NSLog(@"Subscriber 1 receive:%@",x);
@@ -91,19 +108,22 @@
 }
 
 // 热信号
+/**
+ *  热信号就像是“直播”
+ */
 - (void)hotSignal
 {
     RACMulticastConnection *connection = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [[RACScheduler mainThreadScheduler] afterDelay:1 schedule:^{
             [subscriber sendNext:@1];
         }];
-        [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
+        [[RACScheduler mainThreadScheduler] afterDelay:3 schedule:^{
             [subscriber sendNext:@2];
         }];
-        [[RACScheduler mainThreadScheduler] afterDelay:3 schedule:^{
+        [[RACScheduler mainThreadScheduler] afterDelay:5 schedule:^{
             [subscriber sendNext:@3];
         }];
-        [[RACScheduler mainThreadScheduler] afterDelay:4 schedule:^{
+        [[RACScheduler mainThreadScheduler] afterDelay:5.5 schedule:^{
             [subscriber sendCompleted];
         }];
 
@@ -115,20 +135,35 @@
     RACSignal *signal = connection.signal;
     NSLog(@"Signal was created");
 
-    [[RACScheduler mainThreadScheduler] afterDelay:1.5 schedule:^{
+    [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
         [signal subscribeNext:^(id x) {
             NSLog(@"Subscriber 1 receive:%@",x);
         }];
     }];
-    [[RACScheduler mainThreadScheduler] afterDelay:2.5 schedule:^{
+    [[RACScheduler mainThreadScheduler] afterDelay:4 schedule:^{
         [signal subscribeNext:^(id x) {
             NSLog(@"Subscriber 2 receive:%@",x);
         }];
     }];
-
 }
 
+
+#pragma mark - 为什么要区分冷热信号
+/**
+ *  纯函数就是返回值只由输入值决定、而且没有可见副作用的函数或者表达式。和数学中的函数是一样的：
+ f(x) = 5x+1;
+ 这个函数在调用的过程中除了返回值以外的没有任何对外界的影响，除了入参x以外也不受任何其他外界因素的影响。
+ */
+
+
 @end
+
+
+
+
+
+
+
 
 
 
