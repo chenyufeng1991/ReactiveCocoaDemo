@@ -372,6 +372,7 @@
 - (void)testNetwork
 {
     RACSubject *subject = [self doRequest];
+    // subscriberNext就是定义了一个接收体（订阅者）
     [subject subscribeNext:^(NSString *value) {
         NSLog(@"value:%@",value);
     }];
