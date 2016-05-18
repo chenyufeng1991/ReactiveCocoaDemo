@@ -10,6 +10,10 @@
 #import "ThirdViewController.h"
 #import "ReactiveCocoa.h"
 
+/**
+ *  RAC是一个线程安全的框架.
+ replay后面的订阅者可以收到历史值。
+ */
 @interface ThirdViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *myArray;
@@ -22,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号", nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1", nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -63,6 +67,8 @@
             [self testReplaySubject];
         case 4:
             [self coldSignalToHotSignal];
+        case 5:
+            [self coldSignalToHotSignalOptimize1];
         default:
             break;
     }
@@ -299,8 +305,68 @@
 
 }
 
+// 将冷信号转化为热信号优化1
+/**
+ *  使用一个Subject来订阅原始信号，并让其他订阅者订阅这个Subject，这个Subject就是热信号。
+ */
+- (void)coldSignalToHotSignalOptimize1
+{
+    RACSignal *coldSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"创建冷信号");
+        [[RACScheduler mainThreadScheduler] afterDelay:1.5 schedule:^{
+            [subscriber sendNext:@"A"];
+        }];
+
+        [[RACScheduler mainThreadScheduler] afterDelay:3 schedule:^{
+            [subscriber sendNext:@"B"];
+        }];
+
+        [[RACScheduler mainThreadScheduler] afterDelay:5 schedule:^{
+            [subscriber sendCompleted];
+        }];
+
+        return nil;
+    }];
+
+    RACSubject *subject = [RACSubject subject];
+    NSLog(@"Subject创建");
+
+    RACMulticastConnection *multicastConnection = [coldSignal multicast:subject];
+    RACSignal *hotSignal = multicastConnection.signal;
+
+    [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
+        [multicastConnection connect];
+    }];
+
+    [hotSignal subscribeNext:^(id x) {
+        NSLog(@"Subscriber 1 receive value:%@",x);
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:4 schedule:^{
+        [hotSignal subscribeNext:^(id x) {
+            NSLog(@"Subscriber 2 receive value:%@",x);
+        }];
+    }];
+
+}
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
