@@ -10,6 +10,7 @@
 #import "ThirdViewController.h"
 #import "ReactiveCocoa.h"
 #import "LoginViewController.h"
+#import "RACCommandViewController.h"
 
 /**
  *  RAC是一个线程安全的框架.
@@ -33,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand_登录测试",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -93,6 +94,12 @@
             break;
         case 9:
             [self testSideEffect_ReplaySubject];
+            break;
+        case 10:
+        {
+            RACCommandViewController *vc = [[RACCommandViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         default:
             break;

@@ -13,6 +13,8 @@
 		7150842D1CEC4E5900B0B320 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7150842B1CEC4E5900B0B320 /* LoginViewController.m */; };
 		7150842E1CEC4E5900B0B320 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7150842C1CEC4E5900B0B320 /* LoginViewController.xib */; };
 		715084301CEC62FF00B0B320 /* Comment in Resources */ = {isa = PBXBuildFile; fileRef = 7150842F1CEC62FF00B0B320 /* Comment */; };
+		715084341CEC887700B0B320 /* RACCommandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 715084321CEC887700B0B320 /* RACCommandViewController.m */; };
+		715084351CEC887700B0B320 /* RACCommandViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715084331CEC887700B0B320 /* RACCommandViewController.xib */; };
 		716B208F1CE9937C003D319E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 716B208E1CE9937C003D319E /* main.m */; };
 		716B20921CE9937C003D319E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 716B20911CE9937C003D319E /* AppDelegate.m */; };
 		716B209A1CE9937C003D319E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 716B20991CE9937C003D319E /* Assets.xcassets */; };
@@ -35,6 +37,9 @@
 		7150842B1CEC4E5900B0B320 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7150842C1CEC4E5900B0B320 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		7150842F1CEC62FF00B0B320 /* Comment */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Comment; sourceTree = "<group>"; };
+		715084311CEC887700B0B320 /* RACCommandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACCommandViewController.h; sourceTree = "<group>"; };
+		715084321CEC887700B0B320 /* RACCommandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RACCommandViewController.m; sourceTree = "<group>"; };
+		715084331CEC887700B0B320 /* RACCommandViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RACCommandViewController.xib; sourceTree = "<group>"; };
 		716B208A1CE9937C003D319E /* ReactiveCocoaDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveCocoaDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		716B208E1CE9937C003D319E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		716B20901CE9937C003D319E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +123,9 @@
 				7150842C1CEC4E5900B0B320 /* LoginViewController.xib */,
 				7150841D1CEAD97600B0B320 /* LoginManager.h */,
 				7150841E1CEAD97600B0B320 /* LoginManager.m */,
+				715084311CEC887700B0B320 /* RACCommandViewController.h */,
+				715084321CEC887700B0B320 /* RACCommandViewController.m */,
+				715084331CEC887700B0B320 /* RACCommandViewController.xib */,
 				716B20991CE9937C003D319E /* Assets.xcassets */,
 				716B209B1CE9937C003D319E /* LaunchScreen.storyboard */,
 				716B209E1CE9937C003D319E /* Info.plist */,
@@ -196,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				716B209D1CE9937C003D319E /* LaunchScreen.storyboard in Resources */,
+				715084351CEC887700B0B320 /* RACCommandViewController.xib in Resources */,
 				716B209A1CE9937C003D319E /* Assets.xcassets in Resources */,
 				7150842E1CEC4E5900B0B320 /* LoginViewController.xib in Resources */,
 				716B20A81CE99483003D319E /* FirstViewController.xib in Resources */,
@@ -261,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				716B20AC1CE994A4003D319E /* SecondViewController.m in Sources */,
+				715084341CEC887700B0B320 /* RACCommandViewController.m in Sources */,
 				7150841F1CEAD97600B0B320 /* LoginManager.m in Sources */,
 				715084231CEB36D000B0B320 /* ThirdViewController.m in Sources */,
 				716B20921CE9937C003D319E /* AppDelegate.m in Sources */,
