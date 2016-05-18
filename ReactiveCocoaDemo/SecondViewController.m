@@ -100,8 +100,6 @@ RACObserce()也是一样。
     NSLog(@"name = %@,age = %@",name,age);
 #endif
 
-
-
 }
 
 

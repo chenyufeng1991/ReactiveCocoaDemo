@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -85,6 +85,9 @@
             [self.navigationController pushViewController:loginVC animated:YES];
             break;
         }
+        case 7:
+            [self testNetwork];
+            break;
         default:
             break;
     }
@@ -363,6 +366,31 @@
         }];
     }];
 
+}
+
+#pragma mark - 模拟网络请求和异步操作
+- (void)testNetwork
+{
+    RACSubject *subject = [self doRequest];
+    [subject subscribeNext:^(NSString *value) {
+        NSLog(@"value:%@",value);
+    }];
+}
+
+- (RACSubject *)doRequest
+{
+    RACSubject *subject = [RACSubject subject];
+
+    [[[[RACSignal interval:2 onScheduler:[RACScheduler schedulerWithPriority:RACSchedulerPriorityDefault name:@"RequestNetwork"]] take:1] map:^id(id value) {
+
+        NSString *networkData = @"网络获得的数据";
+        [subject sendNext:networkData];
+        return nil;
+    }] subscribeNext:^(id x) {
+
+    }];
+
+    return subject;
 }
 
 

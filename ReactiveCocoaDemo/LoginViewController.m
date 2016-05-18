@@ -10,6 +10,9 @@
 #import "LoginViewController.h"
 #import "ReactiveCocoa.h"
 
+/**
+ *  自定义信号，也就是RACSubject，继承自RACSignal,可以理解为自由度更高的signal。
+ */
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -27,8 +30,8 @@
     // 只有当用户名密码长度都超过6时，按钮才会启用。
     RAC(self,loginButton.enabled) = [RACSignal combineLatest:@[self.usernameTextField.rac_textSignal,self.passwordTextField.rac_textSignal] reduce:^id(NSString *username,NSString *password){
         return @(username.length >= 6 && password.length >= 6);
-    }]; 
-    
+    }];
+
 }
 
 @end
