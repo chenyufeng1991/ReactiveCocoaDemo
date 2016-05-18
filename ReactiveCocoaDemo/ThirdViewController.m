@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号", nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject", nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -56,6 +56,11 @@
         case 1:
             [self hotSignal];
             break;
+        case 2:
+            [self testSubject];
+            break;
+        case 3:
+            [self testReplaySubject];
         default:
             break;
     }
@@ -155,8 +160,100 @@
  这个函数在调用的过程中除了返回值以外的没有任何对外界的影响，除了入参x以外也不受任何其他外界因素的影响。
  */
 
+#pragma mark - RACSubject
+
+/**
+ *  四个订阅者实际上是共享subject的，一旦这个subject发送了值，当前的订阅者就会同时接收到。由于Subscriber3与Subscriber4的订阅事件稍晚，所以错过了第一次值的发送。
+ subject类似于“直播”。而signal类似于“点播”，每次订阅都会重头开始。
+ */
+- (void)testSubject
+{
+    RACSubject *subject = [RACSubject subject];
+    NSLog(@"Start");
+
+    [[RACScheduler mainThreadScheduler] afterDelay:0.1 schedule:^{
+        // Subscriber 1
+        [subject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 1 get:%@",x);
+        }];
+
+        // Subscriber 2
+        [subject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 2 get:%@",x);
+        }];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:1 schedule:^{
+        [subject sendNext:@"数据1"];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:1.1 schedule:^{
+        // Subscriber 3
+        [subject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 3 get:%@",x);
+        }];
+
+        // Subscriber 4
+        [subject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 4 get:%@",x);
+        }];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
+        [subject sendNext:@"数据2"];
+    }];
+}
+
+/**
+ *  对于Subscriber3 和Subscriber4来说，只关心“历史的值”，而不关心"历史的时间线"。
+ 
+ 总结：
+ （1）RACSubject及其子类是热信号；
+ （2）RACSignal排除RACSubject以外的是冷信号；
+ */
+- (void)testReplaySubject
+{
+    RACSubject *replaySubject = [RACReplaySubject subject];
+    NSLog(@"Start");
+
+    [[RACScheduler mainThreadScheduler] afterDelay:0.1 schedule:^{
+        // Subscriber 1
+        [replaySubject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 1 get:%@",x);
+        }];
+
+        // Subscriber 2
+        [replaySubject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 2 get:%@",x);
+        }];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:1 schedule:^{
+        [replaySubject sendNext:@"数据1"];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:1.1 schedule:^{
+        // Subscriber 3
+        [replaySubject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 3 get:%@",x);
+        }];
+
+        // Subscriber 4
+        [replaySubject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 4 get:%@",x);
+        }];
+    }];
+
+    [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
+        [replaySubject sendNext:@"数据2"];
+    }];
+}
+
 
 @end
+
+
+
 
 
 
