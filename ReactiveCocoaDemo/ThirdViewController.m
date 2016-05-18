@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject", nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号", nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -61,6 +61,8 @@
             break;
         case 3:
             [self testReplaySubject];
+        case 4:
+            [self coldSignalToHotSignal];
         default:
             break;
     }
@@ -247,6 +249,54 @@
     [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
         [replaySubject sendNext:@"数据2"];
     }];
+}
+
+#pragma mark - 将冷信号转化为热信号
+
+/**
+ *  冷信号与热信号的本质区别在于是否保持状态。冷信号的多次订阅是不保持状态的，而热信号的多次订阅可以保持状态。
+ 所以一种将冷信号转化为热信号的方法就是：将冷信号订阅，订阅到的每一个时间通过RACSubject发送出去，其他订阅者只订阅这个RACSubject.
+ */
+- (void)coldSignalToHotSignal
+{
+    RACSignal *coldSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSLog(@"创建冷信号");
+        [[RACScheduler mainThreadScheduler] afterDelay:1.5 schedule:^{
+            [subscriber sendNext:@"A"];
+        }];
+
+        [[RACScheduler mainThreadScheduler] afterDelay:3 schedule:^{
+            [subscriber sendNext:@"B"];
+        }];
+
+        [[RACScheduler mainThreadScheduler] afterDelay:5 schedule:^{
+            [subscriber sendCompleted];
+        }];
+
+        return nil;
+    }];
+
+    // subject一开始就被创建
+    RACSubject *subject = [RACSubject subject];
+    NSLog(@"Subject创建");
+
+    // 在2s后subject订阅coldSignal
+    [[RACScheduler mainThreadScheduler] afterDelay:2 schedule:^{
+        [coldSignal subscribe:subject];
+    }];
+
+    // Subscriber 1是subject创建后开始订阅的，但是第一个接收时间与subject接收coldSignal第一个值的时间是一样的
+    [subject subscribeNext:^(id x) {
+        NSLog(@"Subscriber 1 receive value:%@",x);
+    }];
+
+    // Subscriber 2是subject创建4s后开始订阅的，所以只能接收到第二个值
+    [[RACScheduler mainThreadScheduler] afterDelay:4 schedule:^{
+        [subject subscribeNext:^(id x) {
+            NSLog(@"Subscriber 2 receive value:%@",x);
+        }];
+    }];
+
 }
 
 
