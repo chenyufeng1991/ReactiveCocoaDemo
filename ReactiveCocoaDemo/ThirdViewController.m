@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -87,6 +87,12 @@
         }
         case 7:
             [self testNetwork];
+            break;
+        case 8:
+            [self testSideEffect_Signal];
+            break;
+        case 9:
+            [self testSideEffect_ReplaySubject];
             break;
         default:
             break;
@@ -392,6 +398,49 @@
     }];
 
     return subject;
+}
+
+#pragma mark - side effect 信号的副作用
+/**
+ *  如果有多个subscriber,那么signal会被又一次触发。控制台会输出两次“signal triggering”
+ */
+- (void)testSideEffect_Signal
+{
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+
+        NSLog(@"signal triggering");
+        [subscriber sendNext:@"send data"];
+        [subscriber sendCompleted];
+
+        return nil;
+    }];
+
+    [signal subscribeNext:^(id x) {
+        NSLog(@"subscriber 1 %@",x);
+    }];
+
+    [signal subscribeNext:^(id x) {
+        NSLog(@"subscriber 2 %@",x);
+    }];
+}
+
+/**
+ *  使用replay可以保证signal只被触发一次。然后把sendNext的value存起来，下次再有subscriber时，直接发送缓存的数据。
+ */
+- (void)testSideEffect_ReplaySubject
+{
+    RACSubject *subject = [RACReplaySubject subject];
+    NSLog(@"signal triggering");
+    [subject sendNext:@"send data"];
+    [subject sendCompleted];
+
+    [subject subscribeNext:^(id x) {
+        NSLog(@"subscriber 1 %@",x);
+    }];
+
+    [subject subscribeNext:^(id x) {
+        NSLog(@"subscriber 2 %@",x);
+    }];
 }
 
 
