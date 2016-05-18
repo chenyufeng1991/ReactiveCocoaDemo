@@ -9,6 +9,7 @@
 
 #import "ThirdViewController.h"
 #import "ReactiveCocoa.h"
+#import "LoginViewController.h"
 
 /**
  *  RAC是一个线程安全的框架.
@@ -32,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1", nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -71,14 +72,22 @@
             break;
         case 3:
             [self testReplaySubject];
+            break;
         case 4:
             [self coldSignalToHotSignal];
+            break;
         case 5:
             [self coldSignalToHotSignalOptimize1];
+            break;
+        case 6:
+        {
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:loginVC animated:YES];
+            break;
+        }
         default:
             break;
     }
-
 }
 
 #pragma mark - 冷热信号入门
