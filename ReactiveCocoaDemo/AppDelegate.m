@@ -11,6 +11,9 @@
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
 
+/**
+ *  RAC的核心：响应数据的变化
+ */
 @interface AppDelegate ()
 
 @end

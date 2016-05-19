@@ -22,6 +22,10 @@
  *  FRP的核心是信号，信号是通过RACSignal表示，信号是数据流，可以被绑定和传递。
  可以把信号想象成水龙头，只不过里面不是水，而是玻璃球(value)，直径跟水管的内径一样，这样就能保证玻璃球是依次排列，不会出现并排的情况(数据都是线性处理的，不会出现并发情况)。水龙头的开关默认是关的，除非有了订阅者(subscriber)，才会打开。这样只要有新的玻璃球进来，就会自动传送给订阅者。可以在水龙头上加一个过滤嘴(filter)，不符合的不让通过，也可以加一个改动装置，把球改变成符合自己的需求(map)。也可以把多个水龙头合并成一个新的水龙头(combineLatest:reduce:)，这样只要其中的一个水龙头有玻璃球出来，这个新合并的水龙头就会得到这个球。
  */
+
+/**
+ *  比如把signal作为local变量时，如果没有被subscribe，那么方法执行完后，该变量会被dealloc。但如果signal有被subscribe，那么subscriber会持有该signal，直到signal sendCompleted或sendError时，才会解除持有关系，signal才会被dealloc。
+ */
 @interface ThirdViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *myArray;
