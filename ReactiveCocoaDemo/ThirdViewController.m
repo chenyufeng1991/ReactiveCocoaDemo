@@ -586,6 +586,7 @@
     }];
 #endif
 
+#if 0
     __block unsigned subscriptions = 0;
     RACSignal *loggingSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         subscriptions++;
@@ -602,6 +603,65 @@
     [loggingSignal subscribeCompleted:^ {
         NSLog(@"subscription %u",subscriptions);
     }];
+#endif
+
+#if 0
+    __block unsigned subscriptions = 0;
+
+    RACSignal *loggingSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        subscriptions++;
+        [subscriber sendCompleted];
+
+        return nil;
+    }];
+
+    // 只会有一个订阅者
+    loggingSignal = [loggingSignal doCompleted:^{
+        NSLog(@"about to complete subscription:%u",subscriptions);
+    }];
+
+    [loggingSignal subscribeCompleted:^{
+        NSLog(@"subscription %u",subscriptions);
+    }];
+#endif
+
+#if 0
+    RACSequence *letters = [@"A B C D E F G H I" componentsSeparatedByString:@" "].rac_sequence;
+
+    RACSequence *mapped = [letters map:^id(NSString *value) {
+        return [value stringByAppendingString:value];
+    }];
+
+    RACSignal *signal = [mapped signal];
+    [signal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+#endif
+
+#if 0
+    RACSequence *numbers = [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence;
+    RACSequence *filtered = [numbers filter:^BOOL(NSString *value) {
+        return ([value intValue] % 2) == 0;
+    }];
+
+    RACSignal *signal = [filtered signal];
+    [signal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+#endif
+
+#if 0
+    RACSequence *letters = [@"A B C D E F G H I" componentsSeparatedByString:@" "].rac_sequence;
+    RACSequence *numbers = [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence;
+    RACSequence *concatenated = [letters concat:numbers];
+
+    RACSignal *signal = [concatenated signal];
+    [signal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+#endif
+
+
 }
 
 @end
