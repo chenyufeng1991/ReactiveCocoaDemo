@@ -39,6 +39,15 @@ RACObserce()也是一样。
  (4) RACTupleUnpack   :把RACTuple（元组类）解包成对应的数据。
 */
 
+/**
+*  (1)@weakify:将当前对象声明为weak;
+(2)strongify:声明一个局部的strong对象，等于当前对象，可以保证block调用的时候，内部对象不会释放；
+
+需要导入"RACEXTScope.h",在ReactiveCocoa中并没有导入。
+
+Weak-Strong Dance:
+*/
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
