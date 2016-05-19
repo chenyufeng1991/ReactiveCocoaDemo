@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",@"rac_signalForSelector",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -113,6 +113,9 @@
             break;
         case 13:
             [self useSwitchToLatest];
+            break;
+        case 14:
+            [self useSignalForSelector];
             break;
         default:
             break;
@@ -549,6 +552,25 @@
 
     [signal2 sendNext:@1111];
     [signal2 sendNext:@2222];
+}
+
+#pragma mark - rac_signalForSelector
+
+// 等callFunction被调用结束后，回调rac_signalForSelector的block；
+- (void)useSignalForSelector
+{
+    [[self rac_signalForSelector:@selector(callFunction)] subscribeNext:^(id x) {
+        NSLog(@"rac_signalForSelector");
+    }];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self callFunction];
+    });
+}
+
+- (void)callFunction
+{
+    NSLog(@"callFunction...");
 }
 
 @end
