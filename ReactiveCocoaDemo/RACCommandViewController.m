@@ -33,25 +33,28 @@
     [super viewDidAppear:animated];
 
     RACSignal* textSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [subscriber sendNext:@"chenyufeng"];
-        [subscriber sendNext:@"gaowenjing"];
+        [subscriber sendNext:@"first"];
+        [subscriber sendNext:@"second"];
         [subscriber sendCompleted];
         return nil;
     }];
 
     RACCommand* textCommad = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"input --> %@",input);
         return textSignal;
     }];
 
     self.loginButton.rac_command = textCommad;
 
+    // 传入布尔值，当正在执行时为true，否则为false
     [textCommad.executing subscribeNext:^(id x) {
         NSLog(@"executing ---> %@",x);
     }];
 
-    [textCommad.executionSignals subscribeNext:^(NSString *x) {
-        NSLog(@"executionSignals ---> %@",x);
+    // 这里收到的signal就是上面的textSignal
+    [textCommad.executionSignals subscribeNext:^(RACSignal *sig) {
+        [sig subscribeNext:^(id x) {
+            NSLog(@"Subscriber 1 receive:%@",x);
+        }];
     }];
 
     [textCommad.errors subscribeNext:^(id x) {
