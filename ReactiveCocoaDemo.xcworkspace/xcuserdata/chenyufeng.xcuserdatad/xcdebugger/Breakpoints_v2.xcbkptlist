@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReactiveCocoaDemo/ThirdViewController.m"
-            timestampString = "485325228.717787"
+            timestampString = "485333555.428637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
             landmarkName = "-combineSignal"
             landmarkType = "5">
             <Locations>

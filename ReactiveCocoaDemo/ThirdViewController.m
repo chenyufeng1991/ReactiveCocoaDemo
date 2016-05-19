@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -110,6 +110,9 @@
             break;
         case 12:
             [self combineSignal];
+            break;
+        case 13:
+            [self useSwitchToLatest];
             break;
         default:
             break;
@@ -522,6 +525,30 @@
 
         NSLog(@"%@",x);
     }];
+}
+
+#pragma mark - map+switchToLatest
+
+- (void)useSwitchToLatest
+{
+    RACSubject *signalOfSignals = [RACSubject subject];
+    RACSubject *signal1 = [RACSubject subject];
+    RACSubject *signal2 = [RACSubject subject];
+
+    // 获取信号中最近发出信号，订阅最近发出的信号。
+    // 注意switchToLatest：只能用于信号中的信号
+    [signalOfSignals.switchToLatest subscribeNext:^(id x) {
+
+        NSLog(@"%@",x);
+    }];
+    [signalOfSignals sendNext:signal1];
+    [signalOfSignals sendNext:signal2];
+
+    [signal1 sendNext:@1];
+    [signal1 sendNext:@2];
+
+    [signal2 sendNext:@1111];
+    [signal2 sendNext:@2222];
 }
 
 @end
