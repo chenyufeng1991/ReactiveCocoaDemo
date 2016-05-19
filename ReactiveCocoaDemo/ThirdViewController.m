@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -107,6 +107,9 @@
             break;
         case 11:
             [self testRACLifting];
+            break;
+        case 12:
+            [self combineSignal];
             break;
         default:
             break;
@@ -494,6 +497,31 @@
 - (void)doA:(NSString *)A withB:(NSString *)B
 {
     NSLog(@"A:%@ , B:%@",A,B);
+}
+
+#pragma mark - 信号的组合使用
+/**
+ *  多个信号可以组成事件流
+ */
+- (void)combineSignal
+{
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+
+        [subscriber sendNext:@"chenyufeng"];
+        [subscriber sendNext:@"chenyufeng2"];
+        [subscriber sendNext:@"chenyufeng3"];
+        return nil;
+    }];
+
+    // 指定take,表示接收多少个sendNext;
+    RACSignal *signalB = [[signalA take:1] map:^id(NSString *data) {
+        return @(data.length);
+    }];
+
+    [signalB subscribeNext:^(id x) {
+
+        NSLog(@"%@",x);
+    }];
 }
 
 @end
