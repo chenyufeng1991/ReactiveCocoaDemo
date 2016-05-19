@@ -661,6 +661,27 @@
     }];
 #endif
 
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    RACSignal *signalOfSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+
+        [subscriber sendNext:letters];
+        [subscriber sendNext:numbers];
+        [subscriber sendCompleted];
+        return nil;
+    }];
+
+    RACSignal *flattened = [signalOfSignal flatten];
+
+    [flattened subscribeNext:^(NSString *x) {
+        NSLog(@"%@",x);
+    }];
+
+    [letters sendNext:@"A"];
+    [numbers sendNext:@"1"];
+    [letters sendNext:@"B"];
+    [letters sendNext:@"C"];
+    [numbers sendNext:@"2"];
 
 }
 
