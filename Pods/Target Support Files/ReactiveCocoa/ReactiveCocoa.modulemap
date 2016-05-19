@@ -6,9 +6,6 @@ framework module ReactiveCocoa {
 
   private header "RACMulticastConnection+Private.h"
   private header "RACScheduler+Private.h"
-  private header "RACSignal+Private.h"
   private header "RACStream+Private.h"
   private header "RACSubscriber+Private.h"
-  private header "UIControl+RACSignalSupportPrivate.h"
-  private header "RACEXTRuntimeExtensions.h"
 }

@@ -1,18 +1,16 @@
 PODS:
-  - ReactiveCocoa (2.0):
-    - ReactiveCocoa/Core (= 2.0)
-    - ReactiveCocoa/no-arc (= 2.0)
-    - ReactiveCocoa/RACExtensions (= 2.0)
-  - ReactiveCocoa/Core (2.0):
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
     - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.0)
-  - ReactiveCocoa/RACExtensions (2.0):
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
 
 DEPENDENCIES:
-  - ReactiveCocoa (= 2.0)
+  - ReactiveCocoa (= 2.5)
 
 SPEC CHECKSUMS:
-  ReactiveCocoa: c5347d7b1c348d22a85800e14e89da84c5254cfb
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
 
 COCOAPODS: 0.39.0
