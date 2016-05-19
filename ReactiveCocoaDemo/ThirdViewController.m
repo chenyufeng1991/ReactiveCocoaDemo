@@ -413,6 +413,12 @@
 #pragma mark - side effect 信号的副作用
 /**
  *  如果有多个subscriber,那么signal会被又一次触发。控制台会输出两次“signal triggering”
+ Subscriber何时被移除？
+ 当subscriber被sendCompleted,sendError时，或者手动调用[disposable dispose]时会被移除。
+ 
+ 当Subscriber被dispose后，所有该subscriber相关工作都会被停止或取消，资源也会被释放。
+ 
+ Errors有优先权，如果有多个signals被同时监听，只要其中一个signal sendError,那么error就会立刻被传送给subscriber，并导致signal终止执行。相当于Exception.
  */
 - (void)testSideEffect_Signal
 {
