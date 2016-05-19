@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -100,6 +100,9 @@
             RACCommandViewController *vc = [[RACCommandViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
+            break;
+        case 11:
+            [self testRACLifting];
             break;
         default:
             break;
@@ -450,6 +453,38 @@
     }];
 }
 
+#pragma mark - NSObject+RACLifting
+/**
+ *  RACLifting相当于对多个信号监听，只有当多个信号都至少被sendNext过一次后，才会去执行某个操作（理解为订阅者）
+ */
+- (void)testRACLifting
+{
+    NSLog(@"Start");
+
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@"1111"];
+        return nil;
+    }];
+
+    RACSignal *signalB = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [subscriber sendNext:@"2222"];
+        });
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [subscriber sendNext:@"3333"];
+        });
+
+        return nil;
+    }];
+    [self rac_liftSelector:@selector(doA:withB:) withSignals:signalA,signalB, nil];
+}
+
+- (void)doA:(NSString *)A withB:(NSString *)B
+{
+    NSLog(@"A:%@ , B:%@",A,B);
+}
 
 @end
 
