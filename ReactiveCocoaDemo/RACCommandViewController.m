@@ -39,6 +39,9 @@
         return nil;
     }];
 
+    // 设置signal的名字，方便调试
+    [textSignal setNameWithFormat:@"MY_SIGNAL"];
+
     RACCommand* textCommad = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return textSignal;
     }];
