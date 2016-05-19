@@ -29,5 +29,53 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReactiveCocoaDemo/ThirdViewController.m"
+            timestampString = "485325228.717787"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
+            landmarkName = "-combineSignal"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ThirdViewController combineSignal]"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485325330.918681"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "508"
+                  endingLineNumber = "508"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[ThirdViewController combineSignal]_block_invoke"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485325330.918993"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "508"
+                  endingLineNumber = "508"
+                  offsetFromSymbolStart = "43">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -26,7 +26,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    // 模拟：当用户登陆后，按钮不可点击，未登录状态可以点击
+    self.loginMgr = [[LoginManager alloc] init];
+    self.loginMgr.isLogined = NO;
+
+    RACSignal *signal = [RACObserve(self, loginMgr.isLogined) map:^id(id x) {
+        if ([x boolValue])
+        {
+            return @NO;
+        }
+        else
+        {
+            return @YES;
+        }
+    }];
+    self.loginButton.rac_command = [[RACCommand alloc] initWithEnabled:signal signalBlock:^RACSignal *(id input) {
+        // do something
+
+        return nil;
+    }];
+
+
 }
+
+// RACCommand的另一个使用
+#if 0
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -64,6 +89,8 @@
         NSLog(@"errors ---> x");
     }];
 }
+#endif
+
 
 
 @end
