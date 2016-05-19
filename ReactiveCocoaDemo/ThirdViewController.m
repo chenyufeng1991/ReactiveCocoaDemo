@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",@"rac_signalForSelector",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",@"rac_signalForSelector",@"官方文档-Subscription",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -116,6 +116,9 @@
             break;
         case 14:
             [self useSignalForSelector];
+            break;
+        case 15:
+            [self Subscription];
             break;
         default:
             break;
@@ -571,6 +574,34 @@
 - (void)callFunction
 {
     NSLog(@"callFunction...");
+}
+
+#pragma mark - 官方文档
+- (void)Subscription
+{
+#if 0
+    RACSignal *letters = [@"A B C D E F G H I" componentsSeparatedByString:@" "].rac_sequence.signal;
+    [letters subscribeNext:^(NSString *x) {
+        NSLog(@"%@\n",x);
+    }];
+#endif
+
+    __block unsigned subscriptions = 0;
+    RACSignal *loggingSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        subscriptions++;
+        [subscriber sendCompleted];
+        return nil;
+    }];
+
+    // subscription 1
+    [loggingSignal subscribeCompleted:^ {
+        NSLog(@"subscription %u",subscriptions);
+    }];
+
+    // subscription 2
+    [loggingSignal subscribeCompleted:^ {
+        NSLog(@"subscription %u",subscriptions);
+    }];
 }
 
 @end

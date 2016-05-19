@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ReactiveCocoaDemo/ThirdViewController.m"
-            timestampString = "485335363.242779"
+            timestampString = "485351693.682567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "-combineSignal"
             landmarkType = "5">
             <Locations>
@@ -112,6 +112,118 @@
             symbolName = ""
             moduleName = "">
             <Locations>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReactiveCocoaDemo/ThirdViewController.m"
+            timestampString = "485352266.12428"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
+            landmarkName = "-Subscription"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReactiveCocoaDemo/ThirdViewController.m"
+            timestampString = "485352339.22312"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
+            landmarkName = "-Subscription"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ThirdViewController Subscription]"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485352339.885043"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "597"
+                  endingLineNumber = "597"
+                  offsetFromSymbolStart = "162">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[ThirdViewController Subscription]_block_invoke427"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485352339.885587"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "597"
+                  endingLineNumber = "597"
+                  offsetFromSymbolStart = "43">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReactiveCocoaDemo/ThirdViewController.m"
+            timestampString = "485352341.57984"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "602"
+            endingLineNumber = "602"
+            landmarkName = "-Subscription"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ThirdViewController Subscription]"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485352342.072744"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "602"
+                  endingLineNumber = "602"
+                  offsetFromSymbolStart = "319">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[ThirdViewController Subscription]_block_invoke433"
+                  moduleName = "ReactiveCocoaDemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chenyufeng/XcodeWorkspace/ReactiveCocoaDemo/ReactiveCocoaDemo/ThirdViewController.m"
+                  timestampString = "485352342.072959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "602"
+                  endingLineNumber = "602"
+                  offsetFromSymbolStart = "43">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
