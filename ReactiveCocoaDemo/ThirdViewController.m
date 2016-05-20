@@ -746,6 +746,25 @@
     [numbers sendNext:@"2"];
 #endif
 
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    RACSignal *combined = [RACSignal combineLatest:@[letters,numbers]
+                                            reduce:^(NSString *letter,NSString *number){
+                                                return [letter stringByAppendingString:number];
+                                            }];
+
+    [combined subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+
+    [letters sendNext:@"A"];
+    [letters sendNext:@"B"];
+    [numbers sendNext:@"1"];
+    [numbers sendNext:@"2"];
+    [letters sendNext:@"C"];
+    [numbers sendNext:@"3"];
+
+
 }
 
 @end
