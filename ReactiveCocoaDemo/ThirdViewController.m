@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",@"rac_signalForSelector",@"官方文档-Subscription",nil];
+    self.myArray = [[NSMutableArray alloc] initWithObjects:@"冷信号",@"热信号",@"testSubject",@"testReplaySubject",@"将冷信号转化为热信号",@"将冷信号转化为热信号优化1",@"登录界面", @"模拟网络请求",@"testSideEffect_Signal",@"testSideEffect_ReplaySubject",@"RACCommand",@"NSObject+RACLifting",@"信号的组合使用",@"map+switchToLatest",@"rac_signalForSelector",@"官方文档-Subscription",@"官方文档-Design Guidelines",nil];
     self.myTableView = [[UITableView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
@@ -119,6 +119,9 @@
             break;
         case 15:
             [self Subscription];
+            break;
+        case 16:
+            [self DesignGuidelines];
             break;
         default:
             break;
@@ -791,8 +794,25 @@
     [numbers sendNext:@"2"];
     [letters sendNext:@"D"];
 #endif
+}
 
+#pragma mark - 官方文档-Design Guidelines
+- (void)DesignGuidelines
+{
+#if 0
+    // RACSequence是一种pull-driven的数据流，也就是一种以拉取数据为驱动的数据流。
+    // 当没有数据来拉取时，不会有任何动作。注意这不是主动推送，而是被动接受。
+    // head是获取sequence中的第一个节点；tail是返回除第一个节点后的sequence；
+    // 在调用head，tail的时候，才会去拉取数据，所以是pull-driven.
+    NSArray *strings = @[@"A", @"B", @"C", @"D"];
+    RACSequence *sequence = [strings.rac_sequence
+                             map:^id(NSString *str) {
+                                 return [str stringByAppendingString:@"_"];
+                             }];
 
+    NSString *str = sequence.head;
+    NSString *str1 = sequence.tail.tail.tail.head;
+#endif
 
 }
 
