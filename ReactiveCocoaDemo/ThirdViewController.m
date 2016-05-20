@@ -715,6 +715,7 @@
     }];
 #endif
 
+#if 0
     RACSignal *letters = [@"A B C D E F G H I" componentsSeparatedByString:@" "].rac_sequence.signal;
     RACSignal *sequenced = [[letters
                              doNext:^(NSString *letter) {
@@ -727,6 +728,23 @@
     [sequenced subscribeNext:^(id x) {
         NSLog(@"%@",x);// 这里打印出1234....
     }];
+#endif
+
+#if 0
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    RACSignal *merged = [RACSignal merge:@[letters, numbers]];
+
+    [merged subscribeNext:^(NSString *x) {
+        NSLog(@"%@",x);
+    }];
+
+    [letters sendNext:@"A"];
+    [numbers sendNext:@"1"];
+    [letters sendNext:@"B"];
+    [letters sendNext:@"C"];
+    [numbers sendNext:@"2"];
+#endif
 
 }
 
