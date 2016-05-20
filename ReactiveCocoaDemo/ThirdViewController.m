@@ -821,7 +821,26 @@
 #endif
 
 
+#if 0
+    NSArray *strings = @[@"A", @"B", @"C"];
+    RACSequence *sequence = [strings.rac_sequence
+                             map:^id(NSString *str) {
+                                 NSLog(@"%@",str);
+                                 return [str stringByAppendingString:@"_"];
+                             }];
+
+    NSString *concatA = sequence.head;
+    NSString *concatB = sequence.tail.head;
+    NSString *concatB2 = sequence.tail.head;
+
+    RACSequence *derivedSequence = [sequence map:^id(NSString *str) {
+        return [@"_" stringByAppendingString:str];
+    }];
+    NSString *concatB3 = derivedSequence.tail.head;
+#endif
     
+
+
 
 }
 
