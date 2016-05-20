@@ -723,7 +723,7 @@
                             then:^RACSignal *{
                                 return [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence.signal;
                             }];
-    // 这里只返回第二个信号的值
+    // 这里只返回第二个信号的值，只有在订阅后才会打印出doNext和subscribeNext中的值
     [sequenced subscribeNext:^(id x) {
         NSLog(@"%@",x);// 这里打印出1234....
     }];
