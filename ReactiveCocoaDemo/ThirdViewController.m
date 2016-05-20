@@ -661,6 +661,7 @@
     }];
 #endif
 
+#if 0
     RACSubject *letters = [RACSubject subject];
     RACSubject *numbers = [RACSubject subject];
     RACSignal *signalOfSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -671,6 +672,7 @@
         return nil;
     }];
 
+    // 可以把flatten理解为降阶，原本是信号的信号，降阶后就是信号
     RACSignal *flattened = [signalOfSignal flatten];
 
     [flattened subscribeNext:^(NSString *x) {
@@ -682,6 +684,49 @@
     [letters sendNext:@"B"];
     [letters sendNext:@"C"];
     [numbers sendNext:@"2"];
+#endif
+
+#if 0
+    RACSequence *numbers = [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence;
+    RACSequence *extended = [numbers flattenMap:^RACStream *(NSString *num) {
+        return @[num, num].rac_sequence;
+    }];
+
+    RACSignal *extendedSignal = [extended signal];
+    [extendedSignal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+
+    RACSequence *edited = [numbers flattenMap:^RACStream *(NSString *num) {
+        if (num.intValue % 2 == 0)
+        {
+            return [RACSequence empty];
+        }
+        else
+        {
+            NSString *newNum = [num stringByAppendingString:@"_"];
+            return [RACSequence return:newNum];
+        }
+    }];
+
+    RACSignal *editedSignal = [edited signal];
+    [editedSignal subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+#endif
+
+    RACSignal *letters = [@"A B C D E F G H I" componentsSeparatedByString:@" "].rac_sequence.signal;
+    RACSignal *sequenced = [[letters
+                             doNext:^(NSString *letter) {
+                                 NSLog(@"%@",letter);// 这里打印出ABCD...
+                             }]
+                            then:^RACSignal *{
+                                return [@"1 2 3 4 5 6 7 8 9" componentsSeparatedByString:@" "].rac_sequence.signal;
+                            }];
+    // 这里只返回第二个信号的值
+    [sequenced subscribeNext:^(id x) {
+        NSLog(@"%@",x);// 这里打印出1234....
+    }];
 
 }
 
