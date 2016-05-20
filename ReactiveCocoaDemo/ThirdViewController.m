@@ -804,15 +804,24 @@
     // 当没有数据来拉取时，不会有任何动作。注意这不是主动推送，而是被动接受。
     // head是获取sequence中的第一个节点；tail是返回除第一个节点后的sequence；
     // 在调用head，tail的时候，才会去拉取数据，所以是pull-driven.
+    // 这里涉及到懒计算，当多次请求某个sequence.head,只会去请求一次。
+
+   __block NSUInteger myCount = 0;
     NSArray *strings = @[@"A", @"B", @"C", @"D"];
     RACSequence *sequence = [strings.rac_sequence
                              map:^id(NSString *str) {
+                                 myCount++;
                                  return [str stringByAppendingString:@"_"];
                              }];
 
     NSString *str = sequence.head;
-    NSString *str1 = sequence.tail.tail.tail.head;
+    NSString *str1 = sequence.head;
+    NSString *str2 = sequence.head;
+
 #endif
+
+
+    
 
 }
 
