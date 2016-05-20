@@ -746,6 +746,8 @@
     [numbers sendNext:@"2"];
 #endif
 
+
+#if 0
     RACSubject *letters = [RACSubject subject];
     RACSubject *numbers = [RACSubject subject];
     RACSignal *combined = [RACSignal combineLatest:@[letters,numbers]
@@ -763,6 +765,33 @@
     [numbers sendNext:@"2"];
     [letters sendNext:@"C"];
     [numbers sendNext:@"3"];
+#endif
+
+#if 0
+    RACSubject *letters = [RACSubject subject];
+    RACSubject *numbers = [RACSubject subject];
+    RACSubject *signalOfSignals = [RACSubject subject];
+
+    RACSignal *switched = [signalOfSignals switchToLatest];
+
+    // Outputs: A B 1 D
+    [switched subscribeNext:^(NSString *x) {
+        NSLog(@"%@", x);
+    }];
+
+    [signalOfSignals sendNext:letters];
+    [letters sendNext:@"A"];
+    [letters sendNext:@"B"];
+
+    [signalOfSignals sendNext:numbers];
+    [letters sendNext:@"C"];
+    [numbers sendNext:@"1"];
+
+    [signalOfSignals sendNext:letters];
+    [numbers sendNext:@"2"];
+    [letters sendNext:@"D"];
+#endif
+
 
 
 }
